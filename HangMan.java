@@ -22,7 +22,7 @@ public class HangMan{
         }
     }
     public void update(){
-        System.out.println("Number of guesses left: " + tries);
+        System.out.println("Number of mis-guesses left: " + tries);
         System.out.println("What You Have Revealed So Far: " + revealed);
         System.out.println("Letters You Have Guessed: " + guessed);
     }

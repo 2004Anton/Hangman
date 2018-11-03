@@ -6,13 +6,14 @@ public class Main {
 	        Scanner s = new Scanner(System.in);
 	        System.out.println("What is the word or phrase you want your friend to guess?");
 	        String word = s.nextLine();
-	        System.out.println("How many tries do you want to give them?");
+	        System.out.println("How many mis-guesses do you want to give them?");
 	        int tries = s.nextInt();
 	        HangMan p = new HangMan(word,tries);
 	        for(int i = 0; i < 100; i++) {
 	        	System.out.println();
 	        }
 	        while(p.winCondition() == 1){
+	        	p.update();
 	        	System.out.println("Enter your guess here: ");
 	            char g = s.next().toLowerCase().charAt(0);
 	            if(p.isLetter(g) == 0){
@@ -27,8 +28,8 @@ public class Main {
 	                p.subtractTries();
 		            p.updateLetter(g);
 	            }
-	            p.update();
 	        }
+	        p.update();
 	        if(p.winCondition() == 2) {
 	        	System.out.println("YOU WIN");
 	        }
