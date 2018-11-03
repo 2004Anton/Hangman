@@ -1,12 +1,13 @@
 import java.util.Scanner;
+//This is where all of the functions from the Hangman class are called
 public class Main {
     public static void main(String[] args){
-    	boolean playAgain = true;
+    	boolean playAgain = true;//starts off as true
     	while(playAgain) {
 	        Scanner s = new Scanner(System.in);
 	        boolean validWord = false;
 	        String word = "";
-	        System.out.println("What is the word or phrase you want your friend to guess?");
+	        System.out.println("What is the word or phrase you want your friend to guess? (no underscores, it will confuse the guesser)");
 	        while (validWord == false) {
 	        	word = s.nextLine();
 		        if(!(word.contains("_"))) {

@@ -9,7 +9,8 @@ public class HangMan{
         this.tries = tries;
         this.revealed = "";
         this.guessed = "";
-        //To 
+        //To define the length and actual letters that you have revealed?
+        //I dont know how to explain
         for(int i = 0; i < word.length(); i++){
         	if(ALPHABET.contains(word.substring(i,i+1).toLowerCase())) {
         		revealed = revealed + "_";
@@ -18,10 +19,13 @@ public class HangMan{
         		revealed = revealed + word.substring(i,i+1);
         	}
         }
+        //to put in the letters you have guessed
+        //i dont know how to explain
         for(int i = 0; i < ALPHABET.length();i++) {
         	guessed = guessed + " ";
         }
     }
+    //self explainable
     public void update(){
     	System.out.println("The Length Of The Phrase Is: " + word.length() + " (includes non-characters)");
         System.out.println("Number Of Missed Guesses Left: " + tries);
@@ -34,18 +38,15 @@ public class HangMan{
                 return 0; // Has already been guessed
             }
         }
-        for(int i = 0; i < ALPHABET.length(); i++) {
-        	if(ALPHABET.charAt(i) == guess) {
-        		 for(int k = 0; k < word.length(); k++){
-        	         if(word.toLowerCase().charAt(k) == guess){
-        	            return 3;//in the alphabet and in the word
-        	         }
-        		 }
-        		 return 2;//in the alphabet, but not in the word
+        if(this.inAlphabet(guess) != -1) {
+        	for(int i = 0; i < word.length(); i++) {
+        		if(word.toLowerCase().charAt(i)==guess) {
+        			return 3;//in the alphabet and in the word
+        		}
         	}
+        	return 2;//in alphabet but not in word
         }
        return 1; //not in the alphabet, so they cannot guess it
-        
     }
     public void updateLetter(char guess){
         for (int i = 0; i < word.length(); i++){
@@ -53,25 +54,29 @@ public class HangMan{
                 revealed = revealed.substring(0,i) + guess + revealed.substring(i+1,revealed.length());
             }
         }
-        for(int i = 0; i < ALPHABET.length();i++) {
-        	if(ALPHABET.charAt(i) == guess) {
-        		guessed = guessed.substring(0,i) + guess + guessed.substring(i+1,guessed.length());
-        	}
-        }
+        if(this.inAlphabet(guess) != -1) {
+    		guessed = guessed.substring(0,this.inAlphabet(guess)) + guess + guessed.substring(this.inAlphabet(guess)+1,guessed.length());
+    	}
     }
     public void subtractTries() {
     	tries--;
     }
+    public int inAlphabet(char letter) {
+    	for(int i = 0; i < ALPHABET.length();i++) {
+    		if (ALPHABET.charAt(i) == letter) {
+    			return i;
+    		}
+    	}
+    	return -1; //character not in alphabet
+    }
     public int winCondition(){
         if (tries <= 0){
-            return 0;
+            return 0; //Lost
         }
-        for(int i = 0; i < revealed.length();i++){
-            if(revealed.charAt(i) == '_'){
-                return 1;
-            }
+        if(this.revealed.equals(this.word)) {
+        	return 2;//won
         }
-        return 2;
+        return 1; //haven't won or lost yet
     }
 }
 
